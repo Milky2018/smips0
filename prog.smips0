@@ -1,0 +1,23 @@
+(
+    (set r0 0) ;; r0 as 0
+    (set r6 0) ;; r6 as stack pointer
+    (set r7 0) ;; r7 as call back base
+    (j r0 9)   ;; jump to main 
+
+    ;; double: 
+    (ld r1 r6 -1)   ;; r1 as x
+    (add r2 r1 r1)  ;; r2 = x + x
+    (addi r6 r6 -1) ;; pop the stack 
+    (st r2 r6 0)    ;; set the return value
+    (j r7 1)        ;; jump back 
+
+    ;; main:
+    (set r1 10)     ;; r1 = 10
+    (st r1 r6 0)    ;; push the stack 
+    (addi r6 r6 1)  ;;
+    (jal r0 5)      ;; jump to double 
+    
+    (ld r1 r6 0)    ;; r1 = return value (20)
+    (st r1 r0 120)  ;; output 20
+    (exit)
+)
